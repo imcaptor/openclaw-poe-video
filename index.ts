@@ -15,7 +15,7 @@ export default definePluginEntry({
       id: PROVIDER_ID,
       label: "Poe Video",
       docsPath: "/providers/models",
-      envVars: ["POE_API_KEY"],
+      envVars: ["POE_VIDEO_API_KEY"],
       auth: [
         createProviderApiKeyAuthMethod({
           providerId: PROVIDER_ID,
@@ -24,7 +24,7 @@ export default definePluginEntry({
           hint: "Video generation via Poe (Veo-3, Seedance 2.0, Grok, etc.)",
           optionKey: "poeVideoApiKey",
           flagName: "--poe-video-api-key",
-          envVar: "POE_API_KEY",
+          envVar: "POE_VIDEO_API_KEY",
           promptMessage: "Enter Poe API key for video generation",
           defaultModel: DEFAULT_MODEL_REF,
           expectedProviders: [PROVIDER_ID],

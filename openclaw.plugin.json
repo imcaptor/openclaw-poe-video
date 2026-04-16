@@ -5,7 +5,7 @@
   "enabledByDefault": true,
   "providers": ["poe-video"],
   "providerAuthEnvVars": {
-    "poe-video": ["POE_API_KEY"]
+    "poe-video": ["POE_VIDEO_API_KEY"]
   },
   "providerAuthChoices": [
     {
@@ -28,7 +28,7 @@
   },
   "configSchema": {
     "type": "object",
-    "additionalProperties": false,
+    "additionalProperties": true,
     "properties": {}
   }
 }

@@ -1,10 +1,7 @@
 import { isProviderApiKeyConfigured } from "openclaw/plugin-sdk/provider-auth";
 import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/provider-auth-runtime";
 import {
-  assertOkOrThrowHttpError,
-  createProviderOperationDeadline,
   resolveProviderHttpRequestConfig,
-  resolveProviderOperationTimeoutMs,
 } from "openclaw/plugin-sdk/provider-http";
 import type { VideoGenerationProvider } from "openclaw/plugin-sdk/video-generation";
 import {
@@ -57,6 +54,42 @@ function sizeFromAspectRatio(aspectRatio: string | undefined): string | undefine
   return mapping[aspectRatio];
 }
 
+async function resolveApiKey(req: {
+  cfg: unknown;
+  agentDir: string;
+  authStore: unknown;
+}): Promise<string> {
+  try {
+    const auth = await resolveApiKeyForProvider({
+      provider: PROVIDER_ID,
+      cfg: req.cfg,
+      agentDir: req.agentDir,
+      store: req.authStore,
+    });
+    if (auth.apiKey) return auth.apiKey;
+  } catch {}
+
+  const envKey = process.env.POE_VIDEO_API_KEY || process.env.POE_API_KEY;
+  if (envKey) return envKey;
+
+  try {
+    const fs = await import("fs");
+    const path = await import("path");
+    const homeDir = process.env.HOME || "";
+    const envShPath = path.join(homeDir, ".openclaw", "env.sh");
+    const envSh = fs.readFileSync(envShPath, "utf-8");
+    const match =
+      envSh.match(/export\s+POE_VIDEO_API_KEY=(.+)/) ||
+      envSh.match(/export\s+POE_API_KEY=(.+)/);
+    if (match) {
+      const key = match[1].trim().replace(/^["']|["']$/g, "");
+      if (key) return key;
+    }
+  } catch {}
+
+  throw new Error("Poe API key missing — set POE_VIDEO_API_KEY in env.sh");
+}
+
 async function createVideo(params: {
   baseUrl: string;
   headers: Record<string, string>;
@@ -89,7 +122,10 @@ async function createVideo(params: {
   });
 
   try {
-    await assertOkOrThrowHttpError(response, "Poe video creation failed");
+    if (!response.ok) {
+      const errorBody = await response.text().catch(() => "<unreadable>");
+      throw new Error(`Poe video creation failed (${response.status}): ${errorBody}`);
+    }
     return (await response.json()) as PoeVideoResponse;
   } finally {
     await release();
@@ -100,15 +136,11 @@ async function pollVideoStatus(params: {
   baseUrl: string;
   headers: Record<string, string>;
   videoId: string;
-  deadline: ReturnType<typeof createProviderOperationDeadline>;
+  deadlineMs: number;
   dispatcherPolicy?: unknown;
 }): Promise<PoeVideoResponse> {
-  // eslint-disable-next-line no-constant-condition
   while (true) {
-    const remaining = resolveProviderOperationTimeoutMs({
-      deadline: params.deadline,
-      defaultTimeoutMs: DEFAULT_TIMEOUT_MS,
-    });
+    const remaining = params.deadlineMs - Date.now();
     if (remaining <= 0) {
       throw new Error(
         `Poe video generation timed out for video ${params.videoId}`,
@@ -125,7 +157,10 @@ async function pollVideoStatus(params: {
 
     let status: PoeVideoResponse;
     try {
-      await assertOkOrThrowHttpError(response, "Poe video status check failed");
+      if (!response.ok) {
+        const errorBody = await response.text().catch(() => "<unreadable>");
+        throw new Error(`Poe video status check failed (${response.status}): ${errorBody}`);
+      }
       status = (await response.json()) as PoeVideoResponse;
     } finally {
       await release();
@@ -178,11 +213,10 @@ export function buildPoeVideoGenerationProvider(): VideoGenerationProvider {
     label: "Poe Video",
     defaultModel: DEFAULT_POE_VIDEO_MODEL,
     models: POE_VIDEO_MODEL_IDS,
-    isConfigured: ({ agentDir }) =>
-      isProviderApiKeyConfigured({
-        provider: PROVIDER_ID,
-        agentDir,
-      }),
+    isConfigured: ({ agentDir }) => {
+      if (process.env.POE_VIDEO_API_KEY || process.env.POE_API_KEY) return true;
+      return isProviderApiKeyConfigured({ provider: PROVIDER_ID, agentDir });
+    },
     capabilities: {
       generate: {
         maxVideos: 1,
@@ -202,15 +236,7 @@ export function buildPoeVideoGenerationProvider(): VideoGenerationProvider {
       },
     },
     async generateVideo(req) {
-      const auth = await resolveApiKeyForProvider({
-        provider: PROVIDER_ID,
-        cfg: req.cfg,
-        agentDir: req.agentDir,
-        store: req.authStore,
-      });
-      if (!auth.apiKey) {
-        throw new Error("Poe API key missing — set POE_API_KEY");
-      }
+      const apiKey = await resolveApiKey(req);
 
       const model = req.model?.trim() || DEFAULT_POE_VIDEO_MODEL;
       const modelInfo = POE_VIDEO_MODELS[model];
@@ -241,16 +267,13 @@ export function buildPoeVideoGenerationProvider(): VideoGenerationProvider {
           baseUrl: undefined,
           defaultBaseUrl: POE_BASE_URL,
           allowPrivateNetwork: false,
-          defaultHeaders: resolveHeaders(auth.apiKey),
+          defaultHeaders: resolveHeaders(apiKey),
           provider: PROVIDER_ID,
           capability: "video",
           transport: "http",
         });
 
-      const deadline = createProviderOperationDeadline({
-        timeoutMs: req.timeoutMs,
-        label: "Poe video generation",
-      });
+      const deadlineMs = Date.now() + (req.timeoutMs ?? DEFAULT_TIMEOUT_MS);
 
       let inputImageBase64: string | undefined;
       if (hasInputImage) {
@@ -270,15 +293,12 @@ export function buildPoeVideoGenerationProvider(): VideoGenerationProvider {
       const created = await createVideo({
         baseUrl,
         headers: baseHeaders,
-        model,
+        model: modelInfo.id,
         prompt: req.prompt,
         seconds: req.durationSeconds,
         size: resolvedSize,
         inputImageBase64,
-        timeoutMs: resolveProviderOperationTimeoutMs({
-          deadline,
-          defaultTimeoutMs: 60_000,
-        }),
+        timeoutMs: Math.max(deadlineMs - Date.now(), 10_000),
         dispatcherPolicy,
       });
 
@@ -290,7 +310,7 @@ export function buildPoeVideoGenerationProvider(): VideoGenerationProvider {
         baseUrl,
         headers: baseHeaders,
         videoId: created.id,
-        deadline,
+        deadlineMs,
         dispatcherPolicy,
       });
 
@@ -298,10 +318,7 @@ export function buildPoeVideoGenerationProvider(): VideoGenerationProvider {
         baseUrl,
         headers: baseHeaders,
         videoId: created.id,
-        timeoutMs: resolveProviderOperationTimeoutMs({
-          deadline,
-          defaultTimeoutMs: 120_000,
-        }),
+        timeoutMs: Math.max(deadlineMs - Date.now(), 10_000),
         dispatcherPolicy,
       });
 
