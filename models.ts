@@ -5,39 +5,17 @@ export type PoeVideoModelInfo = {
   defaultDurationSeconds: number;
   maxDurationSeconds?: number;
   supportsImageToVideo: boolean;
-  /** Sora models support extend and remix; Veo models do not. */
-  supportsExtendRemix: boolean;
-  supportedSizes: string[];
+  supportedSizes: readonly string[];
 };
 
 export const POE_VIDEO_MODELS: Record<string, PoeVideoModelInfo> = {
-  "Sora-2": {
-    id: "Sora-2",
-    name: "Sora 2",
-    provider: "OpenAI",
-    defaultDurationSeconds: 4,
-    maxDurationSeconds: 20,
-    supportsImageToVideo: true,
-    supportsExtendRemix: true,
-    supportedSizes: ["1920x1080", "1080x1920", "1280x720", "720x1280"],
-  },
-  "Sora-2-Pro": {
-    id: "Sora-2-Pro",
-    name: "Sora 2 Pro",
-    provider: "OpenAI",
-    defaultDurationSeconds: 4,
-    maxDurationSeconds: 20,
-    supportsImageToVideo: true,
-    supportsExtendRemix: true,
-    supportedSizes: ["1920x1080", "1080x1920", "1280x720", "720x1280"],
-  },
   "Veo-2": {
     id: "Veo-2",
     name: "Veo 2",
     provider: "Google",
     defaultDurationSeconds: 8,
     supportsImageToVideo: true,
-    supportsExtendRemix: false,
+
     supportedSizes: ["1920x1080", "1080x1920", "1280x720", "720x1280"],
   },
   "Veo-3": {
@@ -46,7 +24,7 @@ export const POE_VIDEO_MODELS: Record<string, PoeVideoModelInfo> = {
     provider: "Google",
     defaultDurationSeconds: 8,
     supportsImageToVideo: true,
-    supportsExtendRemix: false,
+
     supportedSizes: ["1920x1080", "1080x1920", "1280x720", "720x1280"],
   },
   "Veo-3-Fast": {
@@ -55,7 +33,7 @@ export const POE_VIDEO_MODELS: Record<string, PoeVideoModelInfo> = {
     provider: "Google",
     defaultDurationSeconds: 8,
     supportsImageToVideo: true,
-    supportsExtendRemix: false,
+
     supportedSizes: ["1920x1080", "1080x1920", "1280x720", "720x1280"],
   },
   "Veo-3.1": {
@@ -64,7 +42,7 @@ export const POE_VIDEO_MODELS: Record<string, PoeVideoModelInfo> = {
     provider: "Google",
     defaultDurationSeconds: 8,
     supportsImageToVideo: true,
-    supportsExtendRemix: false,
+
     supportedSizes: ["1920x1080", "1080x1920", "1280x720", "720x1280"],
   },
   "Veo-3.1-Fast": {
@@ -73,7 +51,30 @@ export const POE_VIDEO_MODELS: Record<string, PoeVideoModelInfo> = {
     provider: "Google",
     defaultDurationSeconds: 8,
     supportsImageToVideo: true,
-    supportsExtendRemix: false,
+    supportedSizes: ["1920x1080", "1080x1920", "1280x720", "720x1280"],
+  },
+  "seedance-2-fast": {
+    id: "seedance-2-fast",
+    name: "Seedance 2 Fast",
+    provider: "ByteDance",
+    defaultDurationSeconds: 5,
+    supportsImageToVideo: true,
+    supportedSizes: ["1920x1080", "1080x1920", "1280x720", "720x1280"],
+  },
+  "seedance-2.0": {
+    id: "seedance-2.0",
+    name: "Seedance 2.0",
+    provider: "ByteDance",
+    defaultDurationSeconds: 5,
+    supportsImageToVideo: true,
+    supportedSizes: ["1920x1080", "1080x1920", "1280x720", "720x1280"],
+  },
+  "grok-imagine-video": {
+    id: "grok-imagine-video",
+    name: "Grok Imagine Video",
+    provider: "xAI",
+    defaultDurationSeconds: 5,
+    supportsImageToVideo: true,
     supportedSizes: ["1920x1080", "1080x1920", "1280x720", "720x1280"],
   },
 };

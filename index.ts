@@ -9,7 +9,7 @@ export default definePluginEntry({
   id: "poe-video",
   name: "Poe Video Provider",
   description:
-    "Video generation via Poe Video API — Sora-2, Veo-3, and more",
+    "Video generation via Poe Video API — Veo-3, Seedance 2.0, Grok Imagine Video, and more",
   register(api) {
     api.registerProvider({
       id: PROVIDER_ID,
@@ -21,7 +21,7 @@ export default definePluginEntry({
           providerId: PROVIDER_ID,
           methodId: "api-key",
           label: "Poe API key (video)",
-          hint: "Video generation via Poe (Sora-2, Veo-3, etc.)",
+          hint: "Video generation via Poe (Veo-3, Seedance 2.0, Grok, etc.)",
           optionKey: "poeVideoApiKey",
           flagName: "--poe-video-api-key",
           envVar: "POE_API_KEY",

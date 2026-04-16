@@ -4,8 +4,8 @@
 
 OpenClaw plugin for video generation via [Poe Video API](https://creator.poe.com/api-reference/createVideo).
 
-Supports multiple video models through a single API key: Sora-2, Sora-2-Pro,
-Veo-2, Veo-3, Veo-3.1, and more.
+Supports multiple video models through a single API key: Veo-3, Veo-3.1,
+Seedance 2.0, Grok Imagine Video, and more.
 
 ## Install
 
@@ -58,15 +58,16 @@ Or in the config file:
 
 ### Available models
 
-| Model | Provider | Default duration | Image-to-video | Extend/Remix |
-|-------|----------|------------------|-----------------|--------------|
-| `Sora-2` | OpenAI | 4s | Yes | Yes |
-| `Sora-2-Pro` | OpenAI | 4s | Yes | Yes |
-| `Veo-2` | Google | 8s | Yes | No |
-| `Veo-3` | Google | 8s | Yes | No |
-| `Veo-3-Fast` | Google | 8s | Yes | No |
-| `Veo-3.1` | Google | 8s | Yes | No |
-| `Veo-3.1-Fast` | Google | 8s | Yes | No |
+| Model | Provider | Default duration | Image-to-video |
+|-------|----------|------------------|----------------|
+| `Veo-2` | Google | 8s | Yes |
+| `Veo-3` | Google | 8s | Yes |
+| `Veo-3-Fast` | Google | 8s | Yes |
+| `Veo-3.1` | Google | 8s | Yes |
+| `Veo-3.1-Fast` | Google | 8s | Yes |
+| `seedance-2-fast` | ByteDance | 5s | Yes |
+| `seedance-2.0` | ByteDance | 5s | Yes |
+| `grok-imagine-video` | xAI | 5s | Yes |
 
 ### Specify a model
 

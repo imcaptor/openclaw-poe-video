@@ -1,7 +1,7 @@
 {
   "name": "@imcaptor/openclaw-poe-video",
   "version": "1.0.0",
-  "description": "Poe video generation provider plugin for OpenClaw — supports Sora-2, Veo-3, and more models via Poe Video API",
+  "description": "Poe video generation provider plugin for OpenClaw — supports Veo-3, Seedance 2.0, Grok Imagine Video, and more via Poe Video API",
   "type": "module",
   "main": "index.ts",
   "openclaw": {
@@ -23,8 +23,9 @@
     "openclaw-plugin",
     "poe",
     "video-generation",
-    "sora",
-    "veo"
+    "veo",
+    "seedance",
+    "grok"
   ],
   "author": "imcaptor",
   "license": "MIT",

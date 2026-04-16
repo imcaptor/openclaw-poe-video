@@ -1,7 +1,7 @@
 {
   "id": "poe-video",
   "name": "Poe Video Provider",
-  "description": "Video generation via Poe Video API — Sora-2, Veo-3, and more",
+  "description": "Video generation via Poe Video API — Veo-3, Seedance 2.0, Grok Imagine Video, and more",
   "enabledByDefault": true,
   "providers": ["poe-video"],
   "providerAuthEnvVars": {
@@ -15,7 +15,7 @@
       "choiceLabel": "Poe API key (video)",
       "groupId": "poe-video",
       "groupLabel": "Poe Video",
-      "groupHint": "Video generation via Poe (Sora-2, Veo-3, etc.)",
+      "groupHint": "Video generation via Poe (Veo-3, Seedance 2.0, Grok, etc.)",
       "onboardingScopes": ["video-generation"],
       "optionKey": "poeVideoApiKey",
       "cliFlag": "--poe-video-api-key",

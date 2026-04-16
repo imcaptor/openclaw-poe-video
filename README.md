@@ -4,7 +4,7 @@
 
 通过 [Poe Video API](https://creator.poe.com/api-reference/createVideo) 为 OpenClaw 提供视频生成能力的插件。
 
-一个 API key 即可使用多种视频模型：Sora-2、Sora-2-Pro、Veo-2、Veo-3、Veo-3.1 等。
+一个 API key 即可使用多种视频模型：Veo-3、Veo-3.1、Seedance 2.0、Grok Imagine Video 等。
 
 ## 安装
 
@@ -56,15 +56,16 @@ openclaw config set agents.defaults.videoGenerationModel.primary "poe-video/Veo-
 
 ### 支持的模型
 
-| 模型 | 提供商 | 默认时长 | 图生视频 | 扩展/混剪 |
-|------|--------|----------|----------|-----------|
-| `Sora-2` | OpenAI | 4 秒 | 支持 | 支持 |
-| `Sora-2-Pro` | OpenAI | 4 秒 | 支持 | 支持 |
-| `Veo-2` | Google | 8 秒 | 支持 | 不支持 |
-| `Veo-3` | Google | 8 秒 | 支持 | 不支持 |
-| `Veo-3-Fast` | Google | 8 秒 | 支持 | 不支持 |
-| `Veo-3.1` | Google | 8 秒 | 支持 | 不支持 |
-| `Veo-3.1-Fast` | Google | 8 秒 | 支持 | 不支持 |
+| 模型 | 提供商 | 默认时长 | 图生视频 |
+|------|--------|----------|----------|
+| `Veo-2` | Google | 8 秒 | 支持 |
+| `Veo-3` | Google | 8 秒 | 支持 |
+| `Veo-3-Fast` | Google | 8 秒 | 支持 |
+| `Veo-3.1` | Google | 8 秒 | 支持 |
+| `Veo-3.1-Fast` | Google | 8 秒 | 支持 |
+| `seedance-2-fast` | ByteDance | 5 秒 | 支持 |
+| `seedance-2.0` | ByteDance | 5 秒 | 支持 |
+| `grok-imagine-video` | xAI | 5 秒 | 支持 |
 
 ### 指定模型
 
