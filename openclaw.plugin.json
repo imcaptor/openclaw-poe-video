@@ -1,7 +1,7 @@
 {
   "id": "poe-video",
   "name": "Poe Video Provider",
-  "description": "Video generation via Poe Video API — Veo-3, Seedance 2.0, Grok Imagine Video, and more",
+  "description": "⚠️ SERVICE UNAVAILABLE — Video generation via Poe Video API (Veo-3, Seedance 2.0, Grok Imagine Video). Poe Video API is currently unavailable.",
   "enabledByDefault": true,
   "providers": ["poe-video"],
   "providerAuthEnvVars": {
