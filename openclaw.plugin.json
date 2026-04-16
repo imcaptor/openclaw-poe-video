@@ -1,0 +1,34 @@
+{
+  "id": "poe-video",
+  "name": "Poe Video Provider",
+  "description": "Video generation via Poe Video API — Sora-2, Veo-3, and more",
+  "enabledByDefault": true,
+  "providers": ["poe-video"],
+  "providerAuthEnvVars": {
+    "poe-video": ["POE_API_KEY"]
+  },
+  "providerAuthChoices": [
+    {
+      "provider": "poe-video",
+      "method": "api-key",
+      "choiceId": "poe-video-api-key",
+      "choiceLabel": "Poe API key (video)",
+      "groupId": "poe-video",
+      "groupLabel": "Poe Video",
+      "groupHint": "Video generation via Poe (Sora-2, Veo-3, etc.)",
+      "onboardingScopes": ["video-generation"],
+      "optionKey": "poeVideoApiKey",
+      "cliFlag": "--poe-video-api-key",
+      "cliOption": "--poe-video-api-key <key>",
+      "cliDescription": "Poe API key for video generation"
+    }
+  ],
+  "contracts": {
+    "videoGenerationProviders": ["poe-video"]
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  }
+}
