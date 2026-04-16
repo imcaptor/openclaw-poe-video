@@ -9,45 +9,49 @@ export type PoeVideoModelInfo = {
 };
 
 export const POE_VIDEO_MODELS: Record<string, PoeVideoModelInfo> = {
-  "Veo-2": {
-    id: "Veo-2",
+  "veo-2": {
+    id: "veo-2",
     name: "Veo 2",
     provider: "Google",
     defaultDurationSeconds: 8,
     supportsImageToVideo: true,
-
     supportedSizes: ["1920x1080", "1080x1920", "1280x720", "720x1280"],
   },
-  "Veo-3": {
-    id: "Veo-3",
+  "veo-3": {
+    id: "veo-3",
     name: "Veo 3",
     provider: "Google",
     defaultDurationSeconds: 8,
     supportsImageToVideo: true,
-
     supportedSizes: ["1920x1080", "1080x1920", "1280x720", "720x1280"],
   },
-  "Veo-3-Fast": {
-    id: "Veo-3-Fast",
+  "veo-3-fast": {
+    id: "veo-3-fast",
     name: "Veo 3 Fast",
     provider: "Google",
     defaultDurationSeconds: 8,
     supportsImageToVideo: true,
-
     supportedSizes: ["1920x1080", "1080x1920", "1280x720", "720x1280"],
   },
-  "Veo-3.1": {
-    id: "Veo-3.1",
+  "veo-3.1": {
+    id: "veo-3.1",
     name: "Veo 3.1",
     provider: "Google",
     defaultDurationSeconds: 8,
     supportsImageToVideo: true,
-
     supportedSizes: ["1920x1080", "1080x1920", "1280x720", "720x1280"],
   },
-  "Veo-3.1-Fast": {
-    id: "Veo-3.1-Fast",
+  "veo-3.1-fast": {
+    id: "veo-3.1-fast",
     name: "Veo 3.1 Fast",
+    provider: "Google",
+    defaultDurationSeconds: 8,
+    supportsImageToVideo: true,
+    supportedSizes: ["1920x1080", "1080x1920", "1280x720", "720x1280"],
+  },
+  "veo-3.1-lite": {
+    id: "veo-3.1-lite",
+    name: "Veo 3.1 Lite",
     provider: "Google",
     defaultDurationSeconds: 8,
     supportsImageToVideo: true,
@@ -79,7 +83,7 @@ export const POE_VIDEO_MODELS: Record<string, PoeVideoModelInfo> = {
   },
 };
 
-export const DEFAULT_POE_VIDEO_MODEL = "Veo-3-Fast";
+export const DEFAULT_POE_VIDEO_MODEL = "veo-3-fast";
 
 export const POE_VIDEO_MODEL_IDS = Object.keys(POE_VIDEO_MODELS);
 

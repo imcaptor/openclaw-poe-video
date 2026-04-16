@@ -33,13 +33,13 @@ Once installed, the `video_generate` tool automatically includes Poe Video as
 an available provider. Ask your agent to generate videos:
 
 ```
-Generate a 5-second cinematic sunset beach video using poe-video/Veo-3-Fast
+Generate a 5-second cinematic sunset beach video using poe-video/veo-3-fast
 ```
 
 Or set Poe Video as the default video provider:
 
 ```bash
-openclaw config set agents.defaults.videoGenerationModel.primary "poe-video/Veo-3-Fast"
+openclaw config set agents.defaults.videoGenerationModel.primary "poe-video/veo-3-fast"
 ```
 
 Or in the config file:
@@ -49,7 +49,7 @@ Or in the config file:
   agents: {
     defaults: {
       videoGenerationModel: {
-        primary: "poe-video/Veo-3-Fast",
+        primary: "poe-video/veo-3-fast",
       },
     },
   },
@@ -60,11 +60,12 @@ Or in the config file:
 
 | Model | Provider | Default duration | Image-to-video |
 |-------|----------|------------------|----------------|
-| `Veo-2` | Google | 8s | Yes |
-| `Veo-3` | Google | 8s | Yes |
-| `Veo-3-Fast` | Google | 8s | Yes |
-| `Veo-3.1` | Google | 8s | Yes |
-| `Veo-3.1-Fast` | Google | 8s | Yes |
+| `veo-2` | Google | 8s | Yes |
+| `veo-3` | Google | 8s | Yes |
+| `veo-3-fast` | Google | 8s | Yes |
+| `veo-3.1` | Google | 8s | Yes |
+| `veo-3.1-fast` | Google | 8s | Yes |
+| `veo-3.1-lite` | Google | 8s | Yes |
 | `seedance-2-fast` | ByteDance | 5s | Yes |
 | `seedance-2.0` | ByteDance | 5s | Yes |
 | `grok-imagine-video` | xAI | 5s | Yes |
@@ -72,7 +73,7 @@ Or in the config file:
 ### Specify a model
 
 ```
-Generate a dancing cat video using poe-video/Sora-2
+Generate a dancing cat video using poe-video/seedance-2.0
 ```
 
 ### Image-to-video

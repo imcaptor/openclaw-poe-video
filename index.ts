@@ -3,7 +3,7 @@ import { createProviderApiKeyAuthMethod } from "openclaw/plugin-sdk/provider-aut
 import { buildPoeVideoGenerationProvider } from "./video-generation-provider.js";
 
 const PROVIDER_ID = "poe-video";
-const DEFAULT_MODEL_REF = "poe-video/Veo-3-Fast";
+const DEFAULT_MODEL_REF = "poe-video/veo-3-fast";
 
 export default definePluginEntry({
   id: "poe-video",

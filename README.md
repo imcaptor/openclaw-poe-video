@@ -31,13 +31,13 @@ openclaw config set plugins.entries.poe-video.config.poeVideoApiKey "your-key-he
 安装后，`video_generate` 工具会自动将 Poe Video 加入可用的视频生成 provider。直接让 agent 生成视频即可：
 
 ```
-用 poe-video/Veo-3-Fast 生成一段 5 秒的日落海滩视频
+用 poe-video/veo-3-fast 生成一段 5 秒的日落海滩视频
 ```
 
 也可以将 Poe Video 设为默认视频生成 provider：
 
 ```bash
-openclaw config set agents.defaults.videoGenerationModel.primary "poe-video/Veo-3-Fast"
+openclaw config set agents.defaults.videoGenerationModel.primary "poe-video/veo-3-fast"
 ```
 
 或在配置文件中设置：
@@ -47,7 +47,7 @@ openclaw config set agents.defaults.videoGenerationModel.primary "poe-video/Veo-
   agents: {
     defaults: {
       videoGenerationModel: {
-        primary: "poe-video/Veo-3-Fast",
+        primary: "poe-video/veo-3-fast",
       },
     },
   },
@@ -58,11 +58,12 @@ openclaw config set agents.defaults.videoGenerationModel.primary "poe-video/Veo-
 
 | 模型 | 提供商 | 默认时长 | 图生视频 |
 |------|--------|----------|----------|
-| `Veo-2` | Google | 8 秒 | 支持 |
-| `Veo-3` | Google | 8 秒 | 支持 |
-| `Veo-3-Fast` | Google | 8 秒 | 支持 |
-| `Veo-3.1` | Google | 8 秒 | 支持 |
-| `Veo-3.1-Fast` | Google | 8 秒 | 支持 |
+| `veo-2` | Google | 8 秒 | 支持 |
+| `veo-3` | Google | 8 秒 | 支持 |
+| `veo-3-fast` | Google | 8 秒 | 支持 |
+| `veo-3.1` | Google | 8 秒 | 支持 |
+| `veo-3.1-fast` | Google | 8 秒 | 支持 |
+| `veo-3.1-lite` | Google | 8 秒 | 支持 |
 | `seedance-2-fast` | ByteDance | 5 秒 | 支持 |
 | `seedance-2.0` | ByteDance | 5 秒 | 支持 |
 | `grok-imagine-video` | xAI | 5 秒 | 支持 |
