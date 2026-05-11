@@ -1,22 +1,32 @@
 {
   "name": "@imcaptor/openclaw-poe-video",
-  "version": "1.0.2",
-  "description": "⚠️ SERVICE UNAVAILABLE — Poe video generation provider plugin for OpenClaw (veo-3, veo-3.1, seedance-2.0, grok-imagine-video). Poe Video API is currently unavailable.",
+  "version": "1.1.0",
+  "description": "OpenClaw video generation provider for Poe video bots",
   "type": "module",
-  "main": "index.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "openclaw.plugin.json",
+    "README.md",
+    "README_en.md"
+  ],
   "openclaw": {
-    "extensions": ["./index.ts"],
+    "extensions": [
+      "./dist/index.js"
+    ],
     "compat": {
-      "pluginApi": ">=2026.3.24-beta.2",
-      "minGatewayVersion": "2026.3.24-beta.2"
+      "pluginApi": ">=2026.5.7",
+      "minGatewayVersion": "2026.5.7"
     },
     "build": {
-      "openclawVersion": "2026.3.24-beta.2",
-      "pluginSdkVersion": "2026.3.24-beta.2"
+      "openclawVersion": "2026.5.7",
+      "pluginSdkVersion": "2026.5.7"
     }
   },
   "scripts": {
-    "test": "echo 'No tests configured'"
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run"
   },
   "keywords": [
     "openclaw",
@@ -29,8 +39,12 @@
   ],
   "author": "imcaptor",
   "license": "MIT",
-  "dependencies": {},
+  "peerDependencies": {
+    "openclaw": ">=2026.5.7"
+  },
   "devDependencies": {
-    "openclaw": "latest"
+    "@types/node": "^22.18.0",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
   }
 }

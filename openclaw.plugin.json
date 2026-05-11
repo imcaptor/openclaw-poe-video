@@ -1,34 +1,58 @@
 {
   "id": "poe-video",
   "name": "Poe Video Provider",
-  "description": "⚠️ SERVICE UNAVAILABLE — Video generation via Poe Video API (Veo-3, Seedance 2.0, Grok Imagine Video). Poe Video API is currently unavailable.",
+  "description": "Video generation via Poe API using Veo, Sora, Seedance, Grok Imagine, and other Poe video models.",
   "enabledByDefault": true,
-  "providers": ["poe-video"],
+  "requires": {
+    "env": ["POE_API_KEY"]
+  },
+  "primaryEnv": "POE_API_KEY",
   "providerAuthEnvVars": {
-    "poe-video": ["POE_VIDEO_API_KEY"]
+    "poe": ["POE_API_KEY"]
+  },
+  "setup": {
+    "providers": [
+      {
+        "id": "poe",
+        "authMethods": ["api-key"],
+        "envVars": ["POE_API_KEY"]
+      }
+    ]
   },
   "providerAuthChoices": [
     {
-      "provider": "poe-video",
+      "provider": "poe",
       "method": "api-key",
       "choiceId": "poe-video-api-key",
-      "choiceLabel": "Poe API key (video)",
-      "groupId": "poe-video",
-      "groupLabel": "Poe Video",
-      "groupHint": "Video generation via Poe (Veo-3, Seedance 2.0, Grok, etc.)",
+      "choiceLabel": "Poe API key",
+      "choiceHint": "Video generation via Poe API",
+      "groupId": "poe",
+      "groupLabel": "Poe",
+      "groupHint": "Video generation",
       "onboardingScopes": ["video-generation"],
-      "optionKey": "poeVideoApiKey",
-      "cliFlag": "--poe-video-api-key",
-      "cliOption": "--poe-video-api-key <key>",
-      "cliDescription": "Poe API key for video generation"
+      "optionKey": "poeApiKey",
+      "cliFlag": "--poe-api-key",
+      "cliOption": "--poe-api-key <key>",
+      "cliDescription": "Poe API key"
     }
   ],
   "contracts": {
-    "videoGenerationProviders": ["poe-video"]
+    "videoGenerationProviders": ["poe"]
   },
   "configSchema": {
     "type": "object",
-    "additionalProperties": true,
-    "properties": {}
+    "additionalProperties": false,
+    "properties": {
+      "poeApiKey": {
+        "type": ["string", "object"]
+      }
+    }
+  },
+  "uiHints": {
+    "poeApiKey": {
+      "label": "Poe API key",
+      "help": "Poe API key used for video generation requests.",
+      "sensitive": true
+    }
   }
 }

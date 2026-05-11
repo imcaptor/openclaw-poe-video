@@ -1,13 +1,15 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "strict": true,
-    "esModuleInterop": true,
+    "sourceMap": true,
     "skipLibCheck": true,
     "outDir": "dist",
-    "declaration": true
+    "declaration": true,
+    "types": ["node", "vitest/globals"]
   },
-  "include": ["*.ts"]
+  "include": ["index.ts", "models.ts", "video-generation-provider.ts", "openclaw-plugin-sdk.d.ts"],
+  "exclude": ["*.test.ts", "test-shims"]
 }
